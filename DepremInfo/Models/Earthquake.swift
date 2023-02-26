@@ -8,6 +8,7 @@
 import Foundation
 
 struct KandilliData : Codable {
+    
     let status : Bool
     let httpStatus, serverloadms : Int
     let desc : String
@@ -15,13 +16,14 @@ struct KandilliData : Codable {
     let result : [Result]
 }
 
-
 struct Metadata : Codable {
+    
     let total : Int
 }
 
 
 struct Result : Codable {
+    
     let earthquake_id, title, date, lokasyon : String
     let lat, lng, mag, depth : Double
     let coordinates : [Double]

@@ -24,6 +24,7 @@ class LiveCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     func colorChanger(x : Double) {
         if x < 4.00 {
             colorView.backgroundColor = .green

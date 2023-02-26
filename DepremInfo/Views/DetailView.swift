@@ -19,7 +19,7 @@ class DetailView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.updateLabels(date: dateLabel, title: locationLabel, latitude: latLabel, longitude: longLabel, magnitude: magnitudeLabel, depth: depthLabel, id: idLabel)
-        // Do any additional setup after loading the view.
+        
     }
     
 

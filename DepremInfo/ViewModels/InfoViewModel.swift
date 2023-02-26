@@ -9,14 +9,17 @@ import Foundation
 import UIKit
 
 struct ProvinceListViewModel {
+    
     let provinceList : [Provinces]
     
     func numberOfRowsInComponent() -> Int {
         return provinceList.count
     }
+    
     func titleForRow(index : Int) -> String {
         return provinceList[index].sehir
     }
+    
     func provinceForRow(_ index : Int) -> ProviceViewModel {
         let prov = provinceList[index]
         return ProviceViewModel(province: prov)
@@ -24,11 +27,13 @@ struct ProvinceListViewModel {
     
 }
 struct ProviceViewModel {
+    
     let province : Provinces
     
     var name : String {
         return province.sehir
     }
+    
     var risk : String {
         return province.risk
     }

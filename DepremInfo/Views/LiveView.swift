@@ -8,16 +8,20 @@
 import UIKit
 
 class LiveView: UIViewController{
+    
     var selectedEarthquake : Result?
-    @IBOutlet weak var tableView: UITableView!
     var viewModel : LiveEartquakesViewModel!
+   
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        
         fetchData()
     }
+    
     func fetchData() {
         APIService().callAPI { result in
             switch result {
@@ -37,6 +41,7 @@ class LiveView: UIViewController{
 
 }
 extension LiveView : UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if viewModel == nil {
             return 0
@@ -44,6 +49,7 @@ extension LiveView : UITableViewDelegate, UITableViewDataSource {
             return viewModel.numberOfRowsInSection()
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! LiveCell
         let eartquakeViewModel = self.viewModel.cellForRowAt(indexPath.row)
@@ -54,10 +60,12 @@ extension LiveView : UITableViewDelegate, UITableViewDataSource {
         cell.colorChanger(x: eartquakeViewModel.mag)
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedEarthquake = self.viewModel.cellForRowAt(indexPath.row).earthquake
         performSegue(withIdentifier: "toDetail", sender: nil)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetail" {
             let destVC = segue.destination as! DetailView

@@ -34,7 +34,4 @@ struct Depremdao {
         return liste
     }
     
-    
-    
-    
 }

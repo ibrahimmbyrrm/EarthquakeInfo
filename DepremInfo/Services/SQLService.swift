@@ -15,11 +15,11 @@ struct SQLService {
         let fileManager = FileManager.default
         let kopyalanacakYer = URL(fileURLWithPath: hedefYol).appendingPathComponent("illerDeprem.db")
         if fileManager.fileExists(atPath: kopyalanacakYer.path) {
-            print("veritabanı zaten mecvut")
+            print("The database is already exist.")
         }else {
             do{
                 try fileManager.copyItem(atPath: bundleYolu!, toPath: kopyalanacakYer.path)
-                print("kopyalandi")
+                print("Database has been copied.")
             }catch {
                 print(error)
             }

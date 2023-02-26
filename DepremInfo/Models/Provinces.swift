@@ -8,6 +8,7 @@
 import Foundation
 
 class Provinces {
+    
     var sehir : String
     var risk : String
     
