@@ -25,6 +25,14 @@ class LiveCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configure(with eartquakeViewModel : EarthquakeViewModel) {
+        dateLabel.text = eartquakeViewModel.date
+        depthLabel.text = String(eartquakeViewModel.depth)
+        magLabel.text = String(eartquakeViewModel.mag)
+        titleLabel.text = eartquakeViewModel.title
+        colorChanger(x: eartquakeViewModel.mag)
+    }
+    
     func colorChanger(x : Double) {
         if x < 4.00 {
             colorView.backgroundColor = .green

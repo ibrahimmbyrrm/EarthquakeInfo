@@ -4,12 +4,14 @@
 //
 //  Created by İbrahim Bayram on 24.02.2023.
 //
-
+import RxCocoa
+import RxSwift
 import UIKit
 
 class InfoView: UIViewController{
     
-    var ViewModel : ProvinceListViewModel!
+    var ViewModel = ProvinceListViewModel()
+    var bag = DisposeBag()
     
     @IBOutlet weak var riskLabel: UILabel!
     @IBOutlet weak var provincePicker: UIPickerView!
@@ -18,35 +20,30 @@ class InfoView: UIViewController{
         super.viewDidLoad()
         
         SQLService().copyDatabase()
+        ViewModel.getData()
         
-        provincePicker.delegate = self
-        provincePicker.dataSource = self
+        ViewModel.provinceList
+            .bind(to: provincePicker.rx.itemTitles) { row, item in
+                return item.sehir
+            }
+            .disposed(by: bag)
+        
+        provincePicker.rx.modelSelected(Provinces.self)
+            .subscribe(onNext: { [weak self] items in
+                if let selectedProvince = items.first {
+                    self?.riskLabel.text = "\(selectedProvince.risk)"
+                } else {
+                    self?.riskLabel.text = ""
+                }
+            })
+            .disposed(by: bag)
+        
         
         riskLabel.text = ""
         
-        self.ViewModel = ProvinceListViewModel(provinceList: Depremdao().verileriAl())
+        
         
     }
 }
-extension InfoView : UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return ViewModel.numberOfRowsInComponent()
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let provViewModel = self.ViewModel.provinceForRow(row)
-        return provViewModel.name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let provViewModel = self.ViewModel.provinceForRow(row)
-        provViewModel.updateRiskLabel(label: self.riskLabel)
-    }
-    
-}
+
 

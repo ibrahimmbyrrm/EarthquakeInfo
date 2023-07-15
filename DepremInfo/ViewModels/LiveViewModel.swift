@@ -6,20 +6,25 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 struct LiveEartquakesViewModel {
     
-    let earthquakeList : [Result]
+    let earthquakeList = PublishSubject<[Result]>()
     
-    func numberOfRowsInSection() -> Int {
-        return earthquakeList.count
+    
+    func fetch() {
+        APIService().callAPI { result in
+            switch result {
+            case .success(let data):
+                guard let data else {return}
+                earthquakeList.onNext(data.result)
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
-    
-    func cellForRowAt(_ index : Int) -> EarthquakeViewModel {
-        let earthquake = earthquakeList[index]
-        return EarthquakeViewModel(earthquake: earthquake)
-    }
-    
     
 }
 struct EarthquakeViewModel {

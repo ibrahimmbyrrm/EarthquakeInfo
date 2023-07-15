@@ -28,6 +28,7 @@ struct APIService {
             }
             guard let data = data else {return}
             let jsonData = try? JSONDecoder().decode(KandilliData.self, from: data)
+           
             guard let jsonData = jsonData else {
                 completion(.failure(.ParsingError))
                 return

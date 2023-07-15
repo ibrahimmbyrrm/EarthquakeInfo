@@ -6,73 +6,44 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class LiveView: UIViewController{
     
-    var selectedEarthquake : Result?
-    var viewModel : LiveEartquakesViewModel!
+    var selected : Result?
+    var viewModel = LiveEartquakesViewModel()
    
     @IBOutlet weak var tableView: UITableView!
+    var bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        viewModel.fetch()
+        bindTableView()
         
-        fetchData()
     }
     
-    func fetchData() {
-        APIService().callAPI { result in
-            switch result {
-            case .success(let data):
-                guard let data = data else {return}
-                self.viewModel = LiveEartquakesViewModel(earthquakeList: data.result)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+    private func bindTableView() {
+        viewModel.earthquakeList
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: LiveCell.self)) { row,item,cell in
+            let vm = EarthquakeViewModel(earthquake: item)
+            cell.configure(with: vm)
+        }.disposed(by: bag)
+        
+        tableView
+            .rx
+            .modelSelected(Result.self)
+            .subscribe(onNext: { item in
+                self.selected = item
+                self.performSegue(withIdentifier: "toDetail", sender: nil)
+        }).disposed(by: bag)
     }
-    
-    
-
-}
-extension LiveView : UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewModel == nil {
-            return 0
-        }else {
-            return viewModel.numberOfRowsInSection()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! LiveCell
-        let eartquakeViewModel = self.viewModel.cellForRowAt(indexPath.row)
-        cell.dateLabel.text = eartquakeViewModel.date
-        cell.depthLabel.text = String(eartquakeViewModel.depth)
-        cell.magLabel.text = String(eartquakeViewModel.mag)
-        cell.titleLabel.text = eartquakeViewModel.title
-        cell.colorChanger(x: eartquakeViewModel.mag)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedEarthquake = self.viewModel.cellForRowAt(indexPath.row).earthquake
-        performSegue(withIdentifier: "toDetail", sender: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetail" {
-            let destVC = segue.destination as! DetailView
-            destVC.viewModel = DetailViewModel(selectedEQ: self.selectedEarthquake!)
-        }
+        let destVC = segue.destination as! DetailView
+        destVC.selectedModel = selected!
     }
-    
-    
+
     
 }
+

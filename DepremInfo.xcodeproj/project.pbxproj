@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		805E1E5A29AA0D9600268E56 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E5929AA0D9600268E56 /* DetailViewModel.swift */; };
 		805E1E6929AAE15700268E56 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E6229AAE15600268E56 /* FMDatabaseAdditions.m */; };
 		805E1E6A29AAE15700268E56 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E6429AAE15600268E56 /* FMDatabaseQueue.m */; };
 		805E1E6B29AAE15700268E56 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E6529AAE15600268E56 /* FMResultSet.m */; };
@@ -17,6 +16,8 @@
 		805E1E7229AAE22100268E56 /* Depremdao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E7129AAE22100268E56 /* Depremdao.swift */; };
 		805E1E7429AAE27D00268E56 /* Provinces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805E1E7329AAE27D00268E56 /* Provinces.swift */; };
 		805E1E7529AAE4B700268E56 /* illerDeprem.db in Resources */ = {isa = PBXBuildFile; fileRef = 805E1E6E29AAE19400268E56 /* illerDeprem.db */; };
+		8076F12A2A62EE9C005C0F80 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8076F1292A62EE9C005C0F80 /* RxCocoa */; };
+		8076F12C2A62EE9C005C0F80 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8076F12B2A62EE9C005C0F80 /* RxSwift */; };
 		80D8930C29A90D33004C57C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8930B29A90D33004C57C5 /* AppDelegate.swift */; };
 		80D8930E29A90D33004C57C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8930D29A90D33004C57C5 /* SceneDelegate.swift */; };
 		80D8931029A90D33004C57C5 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D8930F29A90D33004C57C5 /* InfoView.swift */; };
@@ -53,7 +54,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		805E1E5929AA0D9600268E56 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		805E1E5C29AAE12D00268E56 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		805E1E5D29AAE15500268E56 /* DepremInfo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DepremInfo-Bridging-Header.h"; sourceTree = "<group>"; };
 		805E1E5E29AAE15500268E56 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
@@ -98,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8076F12C2A62EE9C005C0F80 /* RxSwift in Frameworks */,
+				8076F12A2A62EE9C005C0F80 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +229,6 @@
 			children = (
 				80D8934729A90F89004C57C5 /* InfoViewModel.swift */,
 				80D8934B29A90F96004C57C5 /* LiveViewModel.swift */,
-				805E1E5929AA0D9600268E56 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -258,6 +259,10 @@
 			dependencies = (
 			);
 			name = DepremInfo;
+			packageProductDependencies = (
+				8076F1292A62EE9C005C0F80 /* RxCocoa */,
+				8076F12B2A62EE9C005C0F80 /* RxSwift */,
+			);
 			productName = DepremInfo;
 			productReference = 80D8930829A90D33004C57C5 /* DepremInfo.app */;
 			productType = "com.apple.product-type.application";
@@ -331,6 +336,9 @@
 				Base,
 			);
 			mainGroup = 80D892FF29A90D33004C57C5;
+			packageReferences = (
+				8076F1282A62EE9C005C0F80 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 80D8930929A90D33004C57C5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -387,7 +395,6 @@
 				805E1E7229AAE22100268E56 /* Depremdao.swift in Sources */,
 				80D8934E29A9F034004C57C5 /* LiveCell.swift in Sources */,
 				80D8930C29A90D33004C57C5 /* AppDelegate.swift in Sources */,
-				805E1E5A29AA0D9600268E56 /* DetailViewModel.swift in Sources */,
 				805E1E7429AAE27D00268E56 /* Provinces.swift in Sources */,
 				80D8934029A90EE2004C57C5 /* ApiService.swift in Sources */,
 				80D8934829A90F89004C57C5 /* InfoViewModel.swift in Sources */,
@@ -740,6 +747,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8076F1282A62EE9C005C0F80 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8076F1292A62EE9C005C0F80 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8076F1282A62EE9C005C0F80 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		8076F12B2A62EE9C005C0F80 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8076F1282A62EE9C005C0F80 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80D8930029A90D33004C57C5 /* Project object */;
 }

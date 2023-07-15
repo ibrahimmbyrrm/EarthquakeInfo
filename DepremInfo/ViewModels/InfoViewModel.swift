@@ -7,11 +7,19 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 struct ProvinceListViewModel {
     
-    let provinceList : [Provinces]
+    let provinceList = PublishSubject<[Provinces]>()
     
+    func getData() {
+        let list = Depremdao().verileriAl()
+        provinceList.onNext(list)
+    }
+    
+    /*
     func numberOfRowsInComponent() -> Int {
         return provinceList.count
     }
@@ -24,6 +32,7 @@ struct ProvinceListViewModel {
         let prov = provinceList[index]
         return ProviceViewModel(province: prov)
     }
+     */
     
 }
 struct ProviceViewModel {
